@@ -87,6 +87,7 @@ const ClearEntries = async () => {
 const UploadImage = async (name: string, data: File) => {
     const locationRef = ref(storage, name);
     
+    // upload entry from here
     await uploadBytes(locationRef, data)
           .catch((err) => {
               console.error(err);
@@ -94,11 +95,21 @@ const UploadImage = async (name: string, data: File) => {
           });
 };
 
+const CurrentDate = (): string => {
+    var today: Date = new Date();
+    var dd: string = String(today.getDate()).padStart(2, '0');
+    var mm: string = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy: number = today.getFullYear();
+
+    return yyyy + '-' + mm + '-' + dd;
+};
+
 export {
     FetchEntries,
     AddEntry,
     ClearEntries,
     UploadImage,
+    CurrentDate,
     CDN_LOCATION
 };
 
