@@ -56,7 +56,7 @@
 	<br>
 	<!--class="columns-1 sm:columns-2 md:columns-3 m-6 mb-0 gap-6"-->
 	<div>
-		<DragGrid columns={3}>
+		<DragGrid columns={3} gap={8}>
 			{#each data as entry, i}
 				<img src={"https://cdn.szammy.com/lowres/" + entry.imagePath} alt="" width="100px" height="100px"/>
 			{/each}
