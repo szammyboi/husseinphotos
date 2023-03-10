@@ -76,6 +76,15 @@ const AddEntry = async (entry: Entry) => {
     addDoc(collection(database, "imageData"), entry);
 };
 
+const DeleteEntry = async (toDelete: Entry) => {
+    const documents = await getDocs(query(collection(database, "imageData")));
+
+    documents.forEach((document) => {
+        let entry: Entry = EntryConverter.fromFirestore(document);
+        if (entry.imagePath == toDelete.imagePath) deleteDoc(document.ref);
+    });
+};
+
 const ClearEntries = async () => {
     const documents = await getDocs(query(collection(database, "imageData")));
 
@@ -85,7 +94,7 @@ const ClearEntries = async () => {
 };
 
 const UploadImage = async (name: string, data: File) => {
-    const locationRef = ref(storage, name);
+    const locationRef = ref(storage, "lowres/" + name);
     
     // upload entry from here
     await uploadBytes(locationRef, data)
@@ -107,6 +116,7 @@ const CurrentDate = (): string => {
 export {
     FetchEntries,
     AddEntry,
+    DeleteEntry,
     ClearEntries,
     UploadImage,
     CurrentDate,
